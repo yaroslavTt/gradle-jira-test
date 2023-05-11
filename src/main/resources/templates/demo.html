@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:fragment="atlassianConnectResources">
+        <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/6.0.5/css/aui.min.css" media="all">
+        <script th:src="@{${atlassianConnectAllJsUrl}}" type="text/javascript"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.5/js/aui.min.js"></script>
+
+        <meta name="token" th:content="${atlassianConnectToken}"/>
+        <script>
+            $(document).ready(function () {
+                $("#btnUpdateProjectName").click(function () {
+                    $.ajax({
+                        url: "project/first/as-addon",
+                        beforeSend: function (request) {
+                            var token = $('meta[name="token"]').attr("content");
+                            request.setRequestHeader("Authorization", "JWT " + token);
+                        },
+                        type: "PUT"
+                    }).done(function (data) {
+                        alert(JSON.stringify(data, null, '\t'));
+                        $("#updatedProjectName").text(data.name);
+                    });
+                });
+            });
+
+        </script>
+    </th:block>
+</head>
+<body>
+<section id="content" role="main">
+    <header class="aui-page-header">
+        <div class="aui-page-header-inner">
+            <div class="aui-page-header-main intro-header">
+                <h2 style="text-align: center">Authentication Sample</h2>
+            </div>
+        </div>
+    </header>
+    <div class="aui-page-panel main-panel" style="margin-left: 30px; margin-right: 30px">
+        <div class="aui-page-panel-inner" style="margin-right: 15px; margin-left: 15px">
+            <section class="aui-page-panel-item">
+                <div>
+                    <div style="min-height: 100px">
+                        <h3 style="margin-top: 5px">User Info (@AuthenticationPrincipal and OAuth 2.0)</h3>
+                        <p>
+                            <span th:text="${principal}"></span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="aui-page-panel main-panel" style="margin-left: 30px; margin-right: 30px">
+        <div class="aui-page-panel-inner" style="margin-right: 15px; margin-left: 15px">
+            <section class="aui-page-panel-item">
+                <div>
+                    <div style="min-height: 100px; max-height: 300px">
+                        <h3 style="margin-top: 5px">Projects (authenticatedAsAddon)</h3>
+                        <div th:switch="${getProjectsAsAddon}">
+                            <h3 th:case="null">No project, please create one first</h3>
+                            <div th:case="*">
+                                <table class="aui">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Key</th>
+                                        <th>Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="project : ${getProjectsAsAddon}">
+                                        <td th:text="${project.id}"></td>
+                                        <td th:text="${project.key}"></td>
+                                        <td th:text="${project.name}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+</body>
+</html>

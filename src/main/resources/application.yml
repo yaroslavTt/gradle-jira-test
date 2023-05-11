@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/plugin_test_db
+    username: postgres
+    password: root
+  #    url: jdbc:hsqldb:file:addon-db
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+  liquibase:
+    enabled: true
+  mvc:
+    log-request-details: true
+server:
+  port: 8080
+
+addon:
+  key: 'myPlugin'
+  base-url: https://12ba-93-175-200-180.ngrok-free.app
+
+atlassian:
+  connect:
+    uri-encoding: none
+
+logging:
+  level:
+    web: debug

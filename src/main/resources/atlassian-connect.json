@@ -1,0 +1,45 @@
+{
+  "key": "${addon.key}",
+  "baseUrl": "https://12ba-93-175-200-180.ngrok-free.app" ,
+  "vendor": {
+    "name": "TechStack",
+    "url": "https://tech-stack.com/"
+  },
+  "authentication": {
+    "type": "jwt"
+  },
+  "lifecycle": {
+    "installed": "/installed",
+    "uninstalled": "/uninstalled"
+  },
+  "modules": {
+    "generalPages": [
+      {
+        "key": "hello-world",
+        "location": "system.top.navigation.bar",
+        "name": {
+          "value": "HelloWorld"
+        },
+        "url": "/hello-world"
+      },
+      {
+        "key": "authentication-demo",
+        "location": "system.top.navigation.bar",
+        "name": {
+          "value": "Authentication Demo"
+        },
+        "url": "/demo",
+        "conditions": [
+          {
+            "condition": "user_is_logged_in"
+          }
+        ]
+      }
+    ]
+  },
+  "scopes": [
+    "read",
+    "write",
+    "act_as_user"
+  ]
+}

@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.11'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.atlassian.connect:atlassian-connect-spring-boot-starter:3.0.3'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.5.RELEASE'
+    implementation 'com.atlassian.connect:atlassian-connect-spring-boot-jpa-starter:3.0.3'
+    implementation 'org.postgresql:postgresql:42.5.4'
+
+//    runtimeOnly 'org.hsqldb:hsqldb:2.5.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
